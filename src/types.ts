@@ -19,6 +19,7 @@ export type MBTIType =
 
 
 export interface FormData{
+    username:string,
     favouriteArtist:string,
     favouriteGenre:string,
     personalityType:MBTIType

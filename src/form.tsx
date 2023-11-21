@@ -7,6 +7,7 @@ interface FormProps{
 
 const Form:React.FC<FormProps> = ({onSubmit}) =>{
     const [formData,setFormData] = useState<FormData>({
+        username: '',
         favouriteArtist: '',
         favouriteGenre: '',
         personalityType: 'ISTJ'
@@ -26,6 +27,14 @@ const Form:React.FC<FormProps> = ({onSubmit}) =>{
     return(
         <>
         <form onSubmit={handleSubmit}>
+        <label>Username</label>
+            <input 
+            type="text"
+            name = "username"
+            value = {formData.username}
+            onChange={handleInputChange}
+            />
+            <br />
             <label>Favourite Artist</label>
             <input 
             type="text"
