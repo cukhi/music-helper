@@ -1,25 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import { resolve } from 'path';
+import Form from './form';
+import { FormData } from './types';
+import { fetchRecommendation } from './api';
 
-function App() {
+// mockup function
+interface RecommendationData{
+  recommendedMusic: string;
+}
+
+
+
+const  App:React.FC = () => {
+
+  const [recommendation,setRecommendation] = useState<RecommendationData | null>(null);
+
+  const fetchData = async (data:FormData) =>{
+    try{
+      const result = await fetchRecommendation(data);
+      console.log("Recommendation result", result);
+      setRecommendation(result);
+    }catch(error:unknown){
+      if(error instanceof Error){
+        console.log('Error:', error.message)
+      }else{
+        console.error("Unexpected error:", error)
+      }
+    }
+  }
+
+
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+      <h1>Music Recommendation App</h1>
+            <Form onSubmit={fetchData} />
+            {recommendation && (
+              <div>
+                <h2>Recommendation:</h2>
+                <p>{recommendation.recommendedMusic}</p>
+                </div>
+            )}
+      </div>
+    
+    </>
   );
 }
 
