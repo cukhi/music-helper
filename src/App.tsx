@@ -24,6 +24,7 @@ const  App:React.FC = () => {
     }catch(error:unknown){
       if(error instanceof Error){
         console.log('Error:', error.message)
+        alert('Error:' + error.message)
       }else{
         console.error("Unexpected error:", error)
       }

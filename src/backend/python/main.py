@@ -6,12 +6,13 @@ import pymongo
 
 app = Flask(__name__)
 CORS(app)
-app.config['MONGO_URI'] = 'mongodb+srv://mareksobkow21:GTy1kIR0X2Qih0aW@cluster0.w4rctmc.mongodb.net/musicHelper'
+app.config['MONGO_URI'] = 'mongodb+srv://MONGO_NAME:MONGO_PASSWORD@MONGO_CLUSTER'
 mongo = PyMongo(app)
 #create unqiue index for usernames
 mongo.db.userData.create_index([('username', pymongo.ASCENDING)], unique=True)
 
 @app.route('/recommendation', methods=['POST'])
+@app.route ('user_preferences', methods=['GET'])
 
 
 def recommend_music():
@@ -40,6 +41,9 @@ def recommend_music():
         return jsonify({"error": str(e)}, 500)
     
 
+def get_user_preferences():
+    user_preferences = list(mongo.db.userData.fin())
+    return jsonify(user_preferences)
 
 def process_data(data):
     return f"{data['username']} - {data['favouriteArtist']} - {data['favouriteGenre']} - {data['personalityType']}"
