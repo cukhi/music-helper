@@ -6,7 +6,7 @@ import pymongo
 
 app = Flask(__name__)
 CORS(app)
-app.config['MONGO_URI'] = 'mongodb+srv://MONGO_NAME:MONGO_PASSWORD@MONGO_CLUSTER'
+app.config['MONGO_URI'] = 'mongodb+srv://mareksobkow21:GTy1kIR0X2Qih0aW@cluster0.w4rctmc.mongodb.net/musicHelper'
 mongo = PyMongo(app)
 #create unqiue index for usernames
 mongo.db.userData.create_index([('username', pymongo.ASCENDING)], unique=True)
